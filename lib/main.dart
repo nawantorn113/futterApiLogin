@@ -14,16 +14,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Login',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-          brightness: Brightness.dark,
+          seedColor: Colors.teal,
+          brightness: Brightness.light,
         ),
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.white70),
-          bodyMedium: TextStyle(color: Colors.white70),
+          bodyLarge: TextStyle(color: Colors.black87),
+          bodyMedium: TextStyle(color: Colors.black54),
         ),
       ),
       home: const LoginPage(),
@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   String _username = '';
   String _password = '';
   String _message = '';
+  String _token = '';
 
   Future<void> _login() async {
     final response = await http.post(
@@ -55,8 +56,10 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
       setState(() {
         _message = 'เข้าสู่ระบบสำเร็จ';
+        _token = data['token'];
       });
     } else {
       setState(() {
@@ -73,7 +76,10 @@ class _LoginPageState extends State<LoginPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color.fromARGB(255, 57, 216, 241), Colors.blue],
+            colors: [
+              Color(0xFFa1c4fd), // สีฟ้าอ่อน
+              Color(0xFFc2e9fb), // สีฟ้าสดใส
+            ],
           ),
         ),
         child: Center(
@@ -81,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Card(
-                color: Color.fromARGB(255, 250, 250, 250),
+                color: Colors.white,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -98,18 +104,18 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 48, 41, 41),
+                            color: Color(0xFF3949ab),
                           ),
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.black87),
                           decoration: InputDecoration(
                             labelText: 'Username',
-                            labelStyle: const TextStyle(color: Colors.white70),
-                            prefixIcon: const Icon(Icons.person, color: Colors.white70),
+                            labelStyle: const TextStyle(color: Colors.black54),
+                            prefixIcon: const Icon(Icons.person, color: Colors.teal),
                             filled: true,
-                            fillColor: Color.fromARGB(115, 103, 101, 101),
+                            fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -125,13 +131,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.black87),
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: const TextStyle(color: Color.fromARGB(179, 255, 255, 255)),
-                            prefixIcon: const Icon(Icons.lock, color: Colors.white70),
+                            labelStyle: const TextStyle(color: Colors.black54),
+                            prefixIcon: const Icon(Icons.lock, color: Colors.teal),
                             filled: true,
-                            fillColor: Color.fromARGB(115, 101, 100, 100),
+                            fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -148,10 +154,16 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton(
-                          child: const Text('เข้าสู่ระบบ'),
+                          child: const Text(
+                            'เข้าสู่ระบบ',
+                            style: TextStyle(
+                              color: Colors.white, // เปลี่ยนสีข้อความเป็นสีขาว
+                              fontWeight: FontWeight.bold, // ทำให้ตัวหนา
+                            ),
+                          ),
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.infinity, 50),
-                            backgroundColor: Color.fromARGB(255, 70, 25, 248),
+                            backgroundColor: Color(0xFF3949ab), // สีพื้นหลังของปุ่ม
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -168,6 +180,11 @@ class _LoginPageState extends State<LoginPage> {
                           Text(
                             _message,
                             style: const TextStyle(color: Colors.redAccent),
+                          ),
+                        if (_token.isNotEmpty)
+                          Text(
+                            'Token: $_token',
+                            style: const TextStyle(color: Colors.greenAccent),
                           ),
                       ],
                     ),
