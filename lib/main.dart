@@ -14,22 +14,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Login',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: Colors.blue[50], // สีพื้นหลังของฟิลด์ข้อความ
+          fillColor: Colors.pink[50],
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,
           ),
-          labelStyle: TextStyle(color: Colors.blue[800]), // สีของ label
-          prefixIconColor: Colors.blue, // สีของไอคอน
+          labelStyle: TextStyle(color: Colors.pink[800]),
+          prefixIconColor: Colors.pink,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Colors.blueAccent, // สีของข้อความบนปุ่ม
+            foregroundColor: Colors.white, backgroundColor: Colors.pink,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -45,7 +45,6 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -85,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.pink[400],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -101,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
+                      color: Colors.pink,
                     ),
                   ),
                   const SizedBox(height: 20),
